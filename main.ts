@@ -69,6 +69,17 @@ let BLACK: number[] = []
 let WHITE: number[] = []
 let BMove = 0
 let WMove = 0
+basic.showIcon(IconNames.Chessboard)
+basic.pause(100)
+basic.showIcon(IconNames.TShirt)
+basic.pause(100)
+basic.showLeds(`
+    . . . . .
+    . . . . .
+    . . . . .
+    . . . . .
+    . . . . .
+    `)
 for (let index = 0; index <= 4; index++) {
     led.plotBrightness(index, 1, 20)
 }
