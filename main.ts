@@ -1,4 +1,5 @@
 function wForward () {
+    wcoord(WMove)
     if (95 != led.pointBrightness(wx, wy - 2)) {
         bright = led.pointBrightness(wx, wy)
         led.unplot(wx, wy)
@@ -16,6 +17,7 @@ input.onButtonPressed(Button.A, function () {
         WMove = 0
     }
     wBlink(WMove)
+    wcoord(WMove)
 })
 function BBlink (num: number) {
     bcoord(num)
@@ -70,14 +72,14 @@ let WMove = 0
 for (let index = 0; index <= 4; index++) {
     led.plotBrightness(index, 1, 20)
 }
-for (let index = 0; index <= 4; index++) {
-    led.plotBrightness(index, 3, 20)
+for (let index2 = 0; index2 <= 4; index2++) {
+    led.plotBrightness(index2, 3, 20)
 }
-for (let index = 0; index <= 4; index++) {
-    led.plotBrightness(1, index, 20)
+for (let index3 = 0; index3 <= 4; index3++) {
+    led.plotBrightness(1, index3, 20)
 }
-for (let index = 0; index <= 4; index++) {
-    led.plotBrightness(3, index, 20)
+for (let index4 = 0; index4 <= 4; index4++) {
+    led.plotBrightness(3, index4, 20)
 }
 led.plotBrightness(0, 4, 255)
 led.plotBrightness(2, 4, 255)
