@@ -1,7 +1,7 @@
 function wForward () {
     wcoord(WMove)
     if (95 != led.pointBrightness(wx, wy - 2)) {
-        bright = led.pointBrightness(wx, wy)
+        bright = 255
         led.unplot(wx, wy)
         basic.pause(500)
         led.plotBrightness(wx, wy - 2, bright)
@@ -16,8 +16,26 @@ input.onButtonPressed(Button.A, function () {
     if (WMove > 2) {
         WMove = 0
     }
-    wBlink(WMove)
     wcoord(WMove)
+    // captured!
+    // 
+    if (wx == -1) {
+        WMove += 1
+        if (WMove > 2) {
+            WMove = 0
+        }
+    }
+    wcoord(WMove)
+    // captured!
+    // 
+    if (wx == -1) {
+        WMove += 1
+        if (WMove > 2) {
+            WMove = 0
+        }
+    }
+    wcoord(WMove)
+    wBlink(WMove)
 })
 function BBlink (num: number) {
     bcoord(num)
@@ -32,8 +50,13 @@ function bcoord (num: number) {
 }
 input.onButtonPressed(Button.B, function () {
     wForward()
+    bx = -1
     BMove = randint(0, 2)
     bcoord(BMove)
+    while (bx == -1) {
+        BMove = randint(0, 2)
+        bcoord(BMove)
+    }
     bForward()
 })
 function wcoord (num: number) {
@@ -42,7 +65,7 @@ function wcoord (num: number) {
 }
 function bForward () {
     if (255 != led.pointBrightness(bx, by + 2)) {
-        bright = led.pointBrightness(bx, by)
+        bright = 95
         led.unplot(bx, by)
         basic.pause(500)
         led.plotBrightness(bx, by + 2, bright)
