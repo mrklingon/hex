@@ -39,7 +39,7 @@ input.onButtonPressed(Button.A, function () {
 })
 function BBlink (num: number) {
     bcoord(num)
-    bright = led.pointBrightness(bx, by)
+    bright = 95
     led.unplot(bx, by)
     basic.pause(500)
     led.plotBrightness(bx, by, bright)
@@ -78,7 +78,7 @@ function bForward () {
 }
 function wBlink (num: number) {
     wcoord(num)
-    bright = led.pointBrightness(wx, wy)
+    bright = 255
     led.unplot(wx, wy)
     basic.pause(500)
     led.plotBrightness(wx, wy, bright)
