@@ -17,25 +17,8 @@ input.onButtonPressed(Button.A, function () {
         WMove = 0
     }
     wcoord(WMove)
-    // captured!
-    // 
-    if (wx == -1) {
-        WMove += 1
-        if (WMove > 2) {
-            WMove = 0
-        }
-    }
-    wcoord(WMove)
-    // captured!
-    // 
-    if (wx == -1) {
-        WMove += 1
-        if (WMove > 2) {
-            WMove = 0
-        }
-    }
-    wcoord(WMove)
     wBlink(WMove)
+    wmoves.unshift(WMove)
 })
 function BBlink (num: number) {
     bcoord(num)
@@ -50,14 +33,10 @@ function bcoord (num: number) {
 }
 input.onButtonPressed(Button.B, function () {
     wForward()
-    bx = -1
     BMove = randint(0, 2)
     bcoord(BMove)
-    while (bx == -1) {
-        BMove = randint(0, 2)
-        bcoord(BMove)
-    }
     bForward()
+    bmoves.unshift(BMove)
 })
 function wcoord (num: number) {
     wx = WHITE[num * 2]
@@ -92,6 +71,8 @@ let BLACK: number[] = []
 let WHITE: number[] = []
 let BMove = 0
 let WMove = 0
+let wmoves: number[] = []
+let bmoves: number[] = []
 basic.showIcon(IconNames.Chessboard)
 basic.pause(100)
 basic.showIcon(IconNames.TShirt)
@@ -115,6 +96,8 @@ for (let index3 = 0; index3 <= 4; index3++) {
 for (let index4 = 0; index4 <= 4; index4++) {
     led.plotBrightness(3, index4, 20)
 }
+bmoves = []
+wmoves = []
 led.plotBrightness(0, 4, 255)
 led.plotBrightness(2, 4, 255)
 led.plotBrightness(4, 4, 255)
