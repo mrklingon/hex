@@ -2,7 +2,7 @@ function wForward () {
     wcoord(WMove)
     canWCap(WMove)
     if (canWCap(WMove) == 1) {
-        basic.showString("need to capture!")
+        wCap(WMove)
     } else {
         if (95 != led.pointBrightness(wx, wy - 2)) {
             // record w move
@@ -36,9 +36,33 @@ function BBlink (num: number) {
 }
 function wCap (num: number) {
     if (led.pointBrightness(wx + 2, wy - 2) == 95) {
+        led.unplot(wx, wy)
+        led.plotBrightness(wx + 2, wy - 2, 255)
+        WHITE[2 * num] = wx + 2
+        WHITE[2 * num + 1] = wy - 2
+        wcoord(num)
+        for (let index = 0; index <= 2; index++) {
+            bcoord(1)
+            if (bx == wx && by == wy) {
+                BLACK[2 * index] = -1
+                BLACK[2 * index + 1] = -1
+            }
+        }
         return 1
     }
     if (led.pointBrightness(wx - 2, wy - 2) == 95) {
+        led.unplot(wx, wy)
+        led.plotBrightness(wx - 2, wy - 2, 255)
+        WHITE[2 * num + 0] = wx - 2
+        WHITE[2 * num + 1] = wy - 2
+        wcoord(num)
+        for (let index = 0; index <= 2; index++) {
+            bcoord(1)
+            if (bx == wx && by == wy) {
+                BLACK[2 * index] = -1
+                BLACK[2 * index + 1] = -1
+            }
+        }
         return 1
     }
     return 0
