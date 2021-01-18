@@ -42,7 +42,7 @@ function wCap (num: number) {
         WHITE[2 * num + 1] = wy - 2
         wcoord(num)
         for (let index = 0; index <= 2; index++) {
-            bcoord(1)
+            bcoord(index)
             if (bx == wx && by == wy) {
                 BLACK[2 * index] = -1
                 BLACK[2 * index + 1] = -1
@@ -57,7 +57,7 @@ function wCap (num: number) {
         WHITE[2 * num + 1] = wy - 2
         wcoord(num)
         for (let index = 0; index <= 2; index++) {
-            bcoord(1)
+            bcoord(index)
             if (bx == wx && by == wy) {
                 BLACK[2 * index] = -1
                 BLACK[2 * index + 1] = -1
@@ -88,6 +88,39 @@ input.onButtonPressed(Button.B, function () {
     bForward()
     bmoves.unshift(BMove)
 })
+function bCap (num: number) {
+    if (led.pointBrightness(bx + 2, by + 2) == 255) {
+        led.unplot(bx, by)
+        led.plotBrightness(bx + 2, by + 2, 95)
+        BLACK[2 * num] = bx + 2
+        BLACK[2 * num + 1] = by + 2
+        bcoord(num)
+        for (let index = 0; index <= 2; index++) {
+            wcoord(index)
+            if (bx == wx && by == wy) {
+                WHITE[2 * index] = -1
+                WHITE[2 * index + 1] = -1
+            }
+        }
+        return 1
+    }
+    if (led.pointBrightness(wx - 2, wy + 2) == 255) {
+        led.unplot(bx, by)
+        led.plotBrightness(bx - 2, wy + 2, 95)
+        BLACK[2 * num + 0] = bx - 2
+        BLACK[2 * num + 1] = by + 2
+        bcoord(num)
+        for (let index = 0; index <= 2; index++) {
+            wcoord(index)
+            if (bx == wx && by == wy) {
+                WHITE[2 * index] = -1
+                WHITE[2 * index + 1] = -1
+            }
+        }
+        return 1
+    }
+    return 0
+}
 function canBCap (num: number) {
     bcoord(num)
     if (led.pointBrightness(bx + 2, by + 2) == 255) {
