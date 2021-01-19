@@ -122,6 +122,7 @@ input.onButtonPressed(Button.B, function () {
     didWin()
 })
 function bCap (num: number) {
+    bcoord(num)
     if (led.pointBrightness(bx + 2, by + 2) == 255) {
         led.unplot(bx, by)
         led.plotBrightness(bx + 2, by + 2, 95)
