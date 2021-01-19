@@ -81,12 +81,45 @@ function canWCap (num: number) {
     }
     return 0
 }
+function didWin () {
+    for (let index = 0; index <= 2; index++) {
+        wcoord(index)
+        // Did white win?
+        // 
+        if (wy == 0) {
+            basic.pause(200)
+            basic.showString("White won!")
+            game.setLife(0)
+        }
+    }
+    for (let index = 0; index <= 2; index++) {
+        bcoord(index)
+        // Did white win?
+        // 
+        if (by == 4) {
+            basic.pause(200)
+            basic.showString("Black won!")
+            game.setLife(0)
+        }
+    }
+}
 input.onButtonPressed(Button.B, function () {
     wForward()
-    BMove = randint(0, 2)
-    bcoord(BMove)
-    bForward()
-    bmoves.unshift(BMove)
+    didWin()
+    if (canBCap(0) || (canBCap(1) || canBCap(2))) {
+        for (let index = 0; index <= 2; index++) {
+            if (1 == canBCap(index)) {
+                bCap(index)
+                didWin()
+            }
+        }
+    } else {
+        BMove = randint(0, 2)
+        bcoord(BMove)
+        bForward(BMove)
+        bmoves.unshift(BMove)
+    }
+    didWin()
 })
 function bCap (num: number) {
     if (led.pointBrightness(bx + 2, by + 2) == 255) {
@@ -135,17 +168,21 @@ function wcoord (num: number) {
     wx = WHITE[num * 2]
     wy = WHITE[num * 2 + 1]
 }
-function bForward () {
-    if (255 != led.pointBrightness(bx, by + 2)) {
-        bright = 95
-        led.unplot(bx, by)
-        basic.pause(500)
-        led.plotBrightness(bx, by + 2, bright)
-        BLACK[BMove * 2 + 1] = by + 2
-        BLACK[BMove * 2] = bx
-        bcoord(BMove)
+function bForward (num: number) {
+    if (1 == canBCap(num)) {
+        bCap(num)
     } else {
-        BBlink(BMove)
+        if (255 != led.pointBrightness(bx, by + 2)) {
+            bright = 95
+            led.unplot(bx, by)
+            basic.pause(500)
+            led.plotBrightness(bx, by + 2, bright)
+            BLACK[BMove * 2 + 1] = by + 2
+            BLACK[BMove * 2] = bx
+            bcoord(BMove)
+        } else {
+            BBlink(BMove)
+        }
     }
 }
 function wBlink (num: number) {
@@ -179,6 +216,7 @@ basic.showLeds(`
     `)
 bmoves = []
 wmoves = []
+game.setLife(1)
 led.plotBrightness(0, 4, 255)
 led.plotBrightness(2, 4, 255)
 led.plotBrightness(4, 4, 255)
