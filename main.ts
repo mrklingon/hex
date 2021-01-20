@@ -19,6 +19,14 @@ function wForward () {
         }
     }
 }
+function canBmove (num: number) {
+    bcoord(1)
+    if (1 == bCap(num) || 0 == led.pointBrightness(bx, wy + 2)) {
+        return 1
+    } else {
+        return 0
+    }
+}
 input.onButtonPressed(Button.A, function () {
     WMove += 1
     if (WMove > 2) {
@@ -66,6 +74,14 @@ function wCap (num: number) {
         return 1
     }
     return 0
+}
+function canWmove (num: number) {
+    wcoord(1)
+    if (canWCap(num) == 1 || 0 == led.pointBrightness(wx, wy - 2)) {
+        return 1
+    } else {
+        return 0
+    }
 }
 function bcoord (num: number) {
     bx = BLACK[num * 2]
@@ -120,6 +136,11 @@ input.onButtonPressed(Button.B, function () {
         bmoves.unshift(BMove)
     }
     didWin()
+    if (1 == isStalled()) {
+        basic.showString("STALEMATE!")
+        basic.pause(1000)
+        game.setLife(0)
+    }
 })
 function bCap (num: number) {
     bcoord(num)
@@ -164,6 +185,13 @@ function canBCap (num: number) {
         return 1
     }
     return 0
+}
+function isStalled () {
+    if (canBmove(0) || (canBmove(1) || canBmove(2)) || (canWmove(0) || (canWmove(1) || canWmove(2)))) {
+        return 0
+    } else {
+        return 1
+    }
 }
 function wcoord (num: number) {
     wx = WHITE[num * 2]
@@ -215,6 +243,11 @@ basic.showLeds(`
     . . . . .
     . . . . .
     `)
+for (let index = 0; index <= 4; index++) {
+    for (let index2 = 0; index2 <= 4; index2++) {
+        led.plotBrightness(index, index2, 0)
+    }
+}
 bmoves = []
 wmoves = []
 game.setLife(1)
