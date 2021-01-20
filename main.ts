@@ -204,6 +204,7 @@ let BMove = 0
 let WMove = 0
 let wmoves: number[] = []
 let bmoves: number[] = []
+basic.showString("Hexapawn!")
 basic.showIcon(IconNames.Chessboard)
 basic.pause(100)
 basic.showIcon(IconNames.TShirt)
