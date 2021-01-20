@@ -138,9 +138,9 @@ function bCap (num: number) {
         }
         return 1
     }
-    if (led.pointBrightness(wx - 2, wy + 2) == 255) {
+    if (led.pointBrightness(bx - 2, by + 2) == 255) {
         led.unplot(bx, by)
-        led.plotBrightness(bx - 2, wy + 2, 95)
+        led.plotBrightness(bx - 2, by + 2, 95)
         BLACK[2 * num + 0] = bx - 2
         BLACK[2 * num + 1] = by + 2
         bcoord(num)
